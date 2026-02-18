@@ -2,30 +2,26 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/neutrino.h>
+#include <sys/dispatch.h>
+#include <sys/iofunc.h>
 
-int main(int argc, char *argv[]) {
-    if (argc < 3) {
-        printf("Pulse Client <client_pulse.cpp>\n");
-        return 1;
-    }
 
-    int pid = atoi(argv[1]);
-    int chid = atoi(argv[2]);
-    int coid;
+#define ATTACH_POINT "my_qnx_server"
 
-    coid = ConnectAttach(0, pid, chid, _NTO_SIDE_CHANNEL, 0); // 0, pid, chid, kernel index value, flags
+int main() {
+	int coid;
 
-    if (coid == -1) {
-        perror("ConnectAttach");
-        return EXIT_FAILURE;
-    }
-
+    if ((coid = name_open(ATTACH_POINT, 0)) == -1) {
+    	return EXIT_FAILURE;
+	}
     printf("Pulse Client connected. Sending heartbeats every 2 seconds...\n");
 
     while (1) {
         MsgSendPulse(coid, 10, 15, 2002); // server id, priority, 8-bit pulse code, 32-bit pulse value
         sleep(2);
     }
+
+    name_close(coid);
 
     return 0;
 }
