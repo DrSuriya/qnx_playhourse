@@ -1,2 +1,2 @@
 - Stage 1: had it use the pid and chid of the server to connect to the channel, then send a pulse every two seconds
-- 
+- Stage 2: Updated connection method in client_pulse.cpp
