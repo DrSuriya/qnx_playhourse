@@ -1,2 +1,3 @@
 - Stage 1: created a channel, shared the pid and chid for the server, created a while loop that is waiting for a msg from a client
 - Stage 2: Updated the server to use name_attach for channel instead of pid and chids
+- Stage 3: Added functionality to recieve messages alongside pulses, implemented a shared header that contains the structures for msgs and replies
