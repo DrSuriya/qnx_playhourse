@@ -1,0 +1,2 @@
+- Stage 3: Implemented a design that sends messages and recieves, while remaining consistent with the shared structures
+- 
