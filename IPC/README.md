@@ -33,17 +33,17 @@ IPC/
 ```
 
 ## Development Stages
-# Stage 1: Manual Connection (PID/CHID)
+### Stage 1: Manual Connection (PID/CHID)
 The initial phase focused on the "manual" way of establishing a connection in QNX.
 * Server: Created a communication channel using ChannelCreate(). It outputted its PID and CHID to the console and entered a blocking MsgReceive() loop.
 * Client Pulse: Required the manual input of the Server's PID and CHID to establish a connection via ConnectAttach(). Once connected, it sent a pulse every 2 seconds.
 
-# Stage 2: Service Discovery (Name Attach)
+### Stage 2: Service Discovery (Name Attach)
 To make the system more robust, the connection logic was refactored to use the GNS (Global Name Service) approach.
 * Server: Updated to use name_attach(). This registered the service under a human-readable string (my_qnx_server) in the QNX pathname space.
 * Client Pulse: Updated to use name_open(). The client now "finds" the server by its name, removing the need for hardcoded PIDs or manual command-line arguments.
 
-# Stage 3: Message Protocol & Concurrency
+### Stage 3: Message Protocol & Concurrency
 The final stage introduced complexity by handling different types of data (Messages vs. Pulses) simultaneously.
 * Shared Header: Implemented shared_header.hpp to define a unified union-based message structure. This ensures the Server correctly interprets the incoming bytes based on the rcvid.
 * Server: Enhanced to differentiate between rcvid == 0 (Pulses) and rcvid > 0 (Messages). For messages, the server now processes data and sends a synchronous MsgReply().
