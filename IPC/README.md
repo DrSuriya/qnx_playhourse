@@ -30,6 +30,7 @@ IPC/
 ├── Stage 3, Client.png
 ├── Stage 3, Concurrency.png
 └── Stage 3, Server.png
+```
 
 ## Development Stages
 # Stage 1: Manual Connection (PID/CHID)
